@@ -56,8 +56,11 @@ module Codebraker
       end
 
       describe 'checking codes' do
+<<<<<<< HEAD
         let(:secret_code_num) { '6543' }
 
+=======
+>>>>>>> 7b829fdd9cd9a2b179e6850275c02ac3a7676c5f
         [
           { answer: '++--', guess: '5643' },
           { answer: '+-', guess: '6411' },
@@ -71,14 +74,22 @@ module Codebraker
           { answer: '++++', guess: '6543' }
         ].each do |try|
           it 'returns result' do
+<<<<<<< HEAD
             expect(CodeCheck.new(secret_code_num.chars, try[:guess]).check_numbers).to eq(try[:answer])
+=======
+            expect(CodeCheck.new(secret_code.chars, try[:guess]).check_numbers).to eq(try[:answer])
+>>>>>>> 7b829fdd9cd9a2b179e6850275c02ac3a7676c5f
           end
         end
       end
     end
 
     describe '#start_game' do
+<<<<<<< HEAD
       let(:wrong_guess) { Array.new(Constants::CODE_LENGTH) { rand(Validation::CODE_MIN..Validation::CODE_MAX) }.join }
+=======
+      let(:wrong_guess) { '1234' }
+>>>>>>> 7b829fdd9cd9a2b179e6850275c02ac3a7676c5f
 
       before do
         game.instance_variable_set(:@secret_code, secret_code.chars)
