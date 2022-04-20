@@ -6,12 +6,12 @@ module Codebraker
   RSpec.describe Validation do
     subject(:game) { Game.new name, difficulty }
 
-    let(:name) { FFaker::Internet.user_name('a' * MIN_NAME_LENGTH) }
+    let(:name) { FFaker::Name.first_name }
     let(:difficulty) { DIFFICULTIES.keys.sample }
 
     describe 'player name error' do
-      let(:long_name) { FFaker::Internet.user_name('a' * MAX_NAME_LENGTH.next) }
-      let(:short_name) { FFaker::Internet.user_name('a' * MIN_NAME_LENGTH.pred) }
+      let(:long_name) { ('a'..'z').to_a.sample * MAX_NAME_LENGTH.next }
+      let(:short_name) { ('a'..'z').to_a.sample * MIN_NAME_LENGTH.pred }
 
       it 'player name empty' do
         expect { game.player_name_validate!(short_name) }.to raise_error(WrongNameError)
@@ -55,7 +55,7 @@ module Codebraker
     end
 
     describe 'difficulty error' do
-      let(:player) { FFaker::Internet.user_name('a' * MIN_NAME_LENGTH) }
+      let(:player) { FFaker::Name.first_name }
       let(:wrong_difficulty) { FFaker::Internet.password }
 
       it 'raise error when wrong difficulty' do

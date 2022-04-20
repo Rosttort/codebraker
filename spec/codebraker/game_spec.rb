@@ -6,7 +6,7 @@ module Codebraker
   RSpec.describe Game do
     subject(:game) { described_class.new(player, difficulty) }
 
-    let(:player) { FFaker::Internet.user_name('player') }
+    let(:player) { FFaker::Name.first_name }
     let(:difficulty) { Constants::DIFFICULTIES.keys.sample }
     let(:difficulty_attempts) { Constants::DIFFICULTIES[difficulty][:attempts] }
     let(:secret_code) { Array.new(Constants::CODE_LENGTH) { rand(Validation::CODE_MIN..Validation::CODE_MAX) }.join }
