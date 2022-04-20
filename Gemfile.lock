@@ -58,10 +58,7 @@ PLATFORMS
 
 DEPENDENCIES
   codebraker!
-<<<<<<< HEAD
   ffaker (~> 2.21.0)
-=======
->>>>>>> 7b829fdd9cd9a2b179e6850275c02ac3a7676c5f
   pry
   rake (~> 13.0)
   rspec (~> 3.10)
