@@ -6,10 +6,10 @@ module Codebraker
   RSpec.describe Game do
     subject(:game) { described_class.new(player, difficulty) }
 
-    let(:player) { 'player' }
+    let(:player) { FFaker::Internet.user_name('player') }
     let(:difficulty) { Constants::DIFFICULTIES.keys.sample }
     let(:difficulty_attempts) { Constants::DIFFICULTIES[difficulty][:attempts] }
-    let(:secret_code) { '6543' }
+    let(:secret_code) { Array.new(Constants::CODE_LENGTH) { rand(Validation::CODE_MIN..Validation::CODE_MAX) }.join }
 
     describe '#start' do
       let(:difficulty_hints) { Constants::DIFFICULTIES[difficulty][:hints] }
@@ -56,6 +56,8 @@ module Codebraker
       end
 
       describe 'checking codes' do
+        let(:secret_code_num) { '6543' }
+
         [
           { answer: '++--', guess: '5643' },
           { answer: '+-', guess: '6411' },
@@ -69,14 +71,14 @@ module Codebraker
           { answer: '++++', guess: '6543' }
         ].each do |try|
           it 'returns result' do
-            expect(CodeCheck.new(secret_code.chars, try[:guess]).check_numbers).to eq(try[:answer])
+            expect(CodeCheck.new(secret_code_num.chars, try[:guess]).check_numbers).to eq(try[:answer])
           end
         end
       end
     end
 
     describe '#start_game' do
-      let(:wrong_guess) { '1234' }
+      let(:wrong_guess) { Array.new(Constants::CODE_LENGTH) { rand(Validation::CODE_MIN..Validation::CODE_MAX) }.join }
 
       before do
         game.instance_variable_set(:@secret_code, secret_code.chars)

@@ -6,12 +6,12 @@ module Codebraker
   RSpec.describe Validation do
     subject(:game) { Game.new name, difficulty }
 
-    let(:name) { 'a' * MIN_NAME_LENGTH }
+    let(:name) { FFaker::Internet.user_name('a' * MIN_NAME_LENGTH) }
     let(:difficulty) { DIFFICULTIES.keys.sample }
 
     describe 'player name error' do
-      let(:long_name) { 'a' * MAX_NAME_LENGTH.next }
-      let(:short_name) { 'a' * MIN_NAME_LENGTH.pred }
+      let(:long_name) { FFaker::Internet.user_name('a' * MAX_NAME_LENGTH.next) }
+      let(:short_name) { FFaker::Internet.user_name('a' * MIN_NAME_LENGTH.pred) }
 
       it 'player name empty' do
         expect { game.player_name_validate!(short_name) }.to raise_error(WrongNameError)
@@ -28,12 +28,16 @@ module Codebraker
           Validation::CODE_MIN.to_s * Constants::CODE_LENGTH.pred,
           Validation::CODE_MIN.to_s * Constants::CODE_LENGTH.next,
           Validation::CODE_MAX.next.to_s * Constants::CODE_LENGTH,
-          'a' * Constants::CODE_LENGTH,
+          ('a'..'z').to_a.sample * Constants::CODE_LENGTH,
           '?' * Constants::CODE_LENGTH
         ]
       end
       let(:empty_string) { ' ' }
-      let(:not_string) { 1234 }
+      let(:not_string) do
+        Array.new(Constants::CODE_LENGTH) do
+          rand(Validation::CODE_MIN..Validation::CODE_MAX)
+        end.join.to_i
+      end
 
       it 'is empty' do
         expect { game.check_guess empty_string }.to raise_error(EmptyStringError)
@@ -51,8 +55,8 @@ module Codebraker
     end
 
     describe 'difficulty error' do
-      let(:player) { 'a' * MIN_NAME_LENGTH }
-      let(:wrong_difficulty) { 'wrong difficulty' }
+      let(:player) { FFaker::Internet.user_name('a' * MIN_NAME_LENGTH) }
+      let(:wrong_difficulty) { FFaker::Internet.password }
 
       it 'raise error when wrong difficulty' do
         expect { game.validate_data(player, wrong_difficulty) }.to raise_error(WrongDifficultyError)

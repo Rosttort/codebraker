@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'ffaker'
 require 'codebraker'
 
 RSpec.configure do |config|

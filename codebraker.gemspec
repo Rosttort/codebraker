@@ -9,7 +9,6 @@ Gem::Specification.new do |spec|
   spec.email = ['rosttort@gmail.com']
 
   spec.summary = 'codebraker'
-  spec.description = ''
   spec.homepage = 'https://github.com/Rosttort/codebraker'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 2.7.0'
@@ -29,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_development_dependency 'ffaker', '~> 2.21.0'
   spec.add_development_dependency 'pry', '~> 0.2'
   spec.add_development_dependency 'rspec', '~> 3.10'
   spec.add_development_dependency 'rubocop', '~> 1.10'
