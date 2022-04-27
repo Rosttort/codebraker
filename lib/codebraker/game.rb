@@ -46,7 +46,6 @@ module Codebraker
         attempts_left: @attempts_total - attempts_used,
         hints: @hints_total,
         hints_left: hints.size,
-        started_at: @time_start
       }
     end
 
