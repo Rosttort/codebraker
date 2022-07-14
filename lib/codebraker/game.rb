@@ -5,7 +5,7 @@ module Codebraker
     include Validation
     include Constants
 
-    attr_reader :attempts_used, :secret_code, :hints
+    attr_reader :attempts_used, :secret_code, :hints, :player_name
 
     def initialize(player_name, difficulty)
       @player_name = player_name
