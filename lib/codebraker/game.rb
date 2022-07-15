@@ -12,6 +12,7 @@ module Codebraker
       @difficulty = difficulty
       validate_data(player_name, difficulty)
       @attempts_used = 0
+      @time_start = DateTime.now
       @secret_code = Array.new(Constants::CODE_LENGTH) { rand(Validation::CODE_NUMS) }.map(&:to_s)
       @attempts_total = Constants::DIFFICULTIES[difficulty][:attempts]
       @hints_total = Constants::DIFFICULTIES[difficulty][:hints]
@@ -45,7 +46,8 @@ module Codebraker
         attempts: @attempts_total,
         attempts_left: @attempts_total - attempts_used,
         hints: @hints_total,
-        hints_left: hints.size
+        hints_left: hints.size,
+        started_at: @time_start
       }
     end
 
